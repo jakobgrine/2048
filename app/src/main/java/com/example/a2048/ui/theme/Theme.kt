@@ -1,31 +1,31 @@
 package com.example.a2048.ui.theme
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun Theme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        darkColors(
-            primary = Color(0xFFF3B27A),
-            // background = Color(0xFF121213),
-        )
-    } else {
-        lightColors(
-            primary = Color(0xFFF3B27A),
-        )
+    val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colorScheme = when {
+        dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> darkColorScheme()
+        else -> lightColorScheme()
     }
 
     val systemUiController = rememberSystemUiController()
-    systemUiController.setSystemBarsColor(colors.surface)
+    systemUiController.setSystemBarsColor(colorScheme.surface)
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colorScheme,
         typography = Typography,
         shapes = Shapes,
         content = content

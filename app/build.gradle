@@ -63,6 +63,8 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    implementation "androidx.compose.material3:material3:1.0.0-alpha14"
+
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.24.11-rc'
 
     kapt "com.google.dagger:hilt-compiler:2.38.1"

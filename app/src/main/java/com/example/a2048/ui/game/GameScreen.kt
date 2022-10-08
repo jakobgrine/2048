@@ -5,7 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlin.math.absoluteValue
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun GameScreen(viewModel: GameViewModel = viewModel()) {
@@ -51,9 +52,9 @@ fun GameScreen(viewModel: GameViewModel = viewModel()) {
                                 DropdownMenuItem(onClick = {
                                     showMenu = false
                                     viewModel.boardSize = it
-                                }) {
-                                    Text("${it}x$it")
-                                }
+                                }, text = {
+                                    Text("$it×$it")
+                                })
                             }
                         }
                     }
@@ -116,7 +117,7 @@ fun GameScreen(viewModel: GameViewModel = viewModel()) {
             exit = fadeOut(),
         ) {
             Surface(
-                color = MaterialTheme.colors.background.copy(alpha = 0.9f),
+                color = MaterialTheme.colorScheme.background.copy(alpha = 0.9f),
                 modifier = Modifier.fillMaxSize(),
             ) {
                 Column(
@@ -124,7 +125,7 @@ fun GameScreen(viewModel: GameViewModel = viewModel()) {
                     verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text("Game Over", color = MaterialTheme.colors.onBackground)
+                    Text("Game Over", color = MaterialTheme.colorScheme.onBackground)
                     TextButton(onClick = {
                         viewModel.reset()
                     }) {
